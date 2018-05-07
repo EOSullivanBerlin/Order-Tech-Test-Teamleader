@@ -2,9 +2,10 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import ProductList from './ProductList';
 
+let mockProducts, wrapper;
 
-it('should render a list of products as an unordered list', () => {
-  const mockProducts = [
+beforeEach(() => {
+  mockProducts = [
     {
        "id": "A101",
       "description": "Mock Screwdriver",
@@ -18,6 +19,15 @@ it('should render a list of products as an unordered list', () => {
        "price": "49.50"
      }
   ];
-  const wrapper = shallow(<ProductList products={mockProducts}/>);
+    wrapper = shallow(<ProductList products={mockProducts}/>);
+});
+
+it('should render a list of products as an unordered list', () => {
   expect(wrapper.find('li').length).toEqual(mockProducts.length);
+});
+
+
+it('should display the product description in each <li> element', () => {
+  const firstElement = wrapper.find('li').first();
+  expect(firstElement.contains(mockProducts[0].description)).toEqual(true);
 });
