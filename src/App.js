@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ProductList from './components/ProductList';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [
+       {
+          "id": "A101",
+         "description": "Screwdriver",
+         "category": "1",
+         "price": "9.75"
+       },
+       {
+          "id": "A102",
+          "description": "Electric screwdriver",
+          "category": "1",
+          "price": "49.50"
+        },
+        {
+          "id": "B101",
+          "description": "Basic on-off switch",
+          "category": "2",
+          "price": "4.99"
+        },
+        {
+          "id": "B102",
+          "description": "Press button",
+          "category": "2",
+          "price": "4.99"
+        },
+        {
+          "id": "B103",
+          "description": "Switch with motion detector",
+          "category": "2",
+          "price": "12.95"
+        }
+      ]
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+      <h1>Products</h1>
+      <ProductList products={this.state.products}/>
       </div>
     );
   }

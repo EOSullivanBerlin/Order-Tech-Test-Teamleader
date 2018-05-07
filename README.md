@@ -9,7 +9,7 @@ I was asked to complete this React tech test as part of the recruitment process 
 
 	As a customer,
 	so that I can remove unnecessary products,
-	I want to be able to remove items form the order.
+	I want to be able to remove items from the order.
 
 	As a customer,
 	so that I can order an item,
@@ -18,3 +18,11 @@ I was asked to complete this React tech test as part of the recruitment process 
 	As a customer,
 	so that I know if an order was successful,
 	I want to receive a conformation of success or failure.
+
+## Set up and tests
+
+npm install
+
+npm start
+
+npm tests
