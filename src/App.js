@@ -38,14 +38,14 @@ class App extends Component {
           "price": "12.95"
         }
       ],
-      selectedProducts: []
+      order: []
     }
   }
 
   handelProductSelect (product) {
     this.setState(prevState => {
       return {
-        selectedProducts: prevState.selectedProducts.concat(product)
+        order: prevState.selectedProducts.concat(product)
       }
     });
   }
@@ -57,7 +57,6 @@ class App extends Component {
       <ProductList
         products={this.state.products}
         onProductSelect={this.handelProductSelect.bind(this)}
-
       />
       </div>
     );
