@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import ProductList from './ProductList';
 
-let mockProducts, wrapper;
+let mockProducts, wrapper, productSelectFn;
 
 beforeEach(() => {
   mockProducts = [
@@ -19,7 +19,19 @@ beforeEach(() => {
        "price": "49.50"
      }
   ];
-    wrapper = shallow(<ProductList products={mockProducts}/>);
+  productSelectFn = jest.fn();
+    wrapper = shallow(<ProductList
+       products={mockProducts}
+       onProductSelect={productSelectFn}
+       />);
+});
+
+it('should call props.onProductselect when an <li> is clicked', () => {
+  const firstElement = wrapper.find('li').first();
+  expect(productSelectFn.mock.calls.length).toEqual(0);
+  firstElement.simulate('click');
+  expect(productSelectFn.mock.calls.length).toEqual(1);
+  expect(productSelectFn.mock.calls[0][0]).toEqual(mockProducts[0]);
 });
 
 it('should render a list of products as an unordered list', () => {
@@ -30,4 +42,8 @@ it('should render a list of products as an unordered list', () => {
 it('should display the product description in each <li> element', () => {
   const firstElement = wrapper.find('li').first();
   expect(firstElement.contains(mockProducts[0].description)).toEqual(true);
+});
+
+afterEach(() => {
+  productSelectFn.mockReset();
 });

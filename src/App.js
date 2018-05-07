@@ -37,15 +37,28 @@ class App extends Component {
           "category": "2",
           "price": "12.95"
         }
-      ]
+      ],
+      selectedProducts: []
     }
+  }
+
+  handelProductSelect (product) {
+    this.setState(prevState => {
+      return {
+        selectedProducts: prevState.selectedProducts.concat(product)
+      }
+    });
   }
 
   render() {
     return (
       <div>
       <h1>Products</h1>
-      <ProductList products={this.state.products}/>
+      <ProductList
+        products={this.state.products}
+        onProductSelect={this.handelProductSelect.bind(this)}
+
+      />
       </div>
     );
   }
