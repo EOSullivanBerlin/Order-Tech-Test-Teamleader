@@ -32,12 +32,12 @@ beforeEach(() => {
       },
       {
          "id": "A102",
-         "quantity": "1",
+         "quantity": "2",
          "unit-price": "49.50",
-         "total": "49.50"
+         "total": "99"
        }
     ],
-    "total": "59.25"
+    "total": "108.75"
     };
 
   findDescriptionFn = jest.fn();
@@ -70,6 +70,20 @@ it('should display each items quantity in each <li> element', () => {
   expect(firstElement.contains(mockOrders.items[0].id)).toEqual(true);
 });
 
+it('should display an item total', () => {
+  const firstElement = wrapper.find('li').first();
+  expect(firstElement.contains(mockOrders.items[0].total)).toEqual(true);
+});
+
+it('should display a quantity', () => {
+  const firstElement = wrapper.find('li').first();
+  expect(firstElement.contains(mockOrders.items[0].quantity)).toEqual(true);
+});
+
+it('should display a grand total', () => {
+  const total = wrapper.find('h1');
+  expect(total.contains(mockOrders.total)).toEqual(true);
+});
 
 it('should call props.onItemSelectFn when an <li> is clicked', () => {
   const firstElement = wrapper.find('li').first();
