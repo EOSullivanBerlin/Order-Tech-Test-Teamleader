@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductList from './components/ProductList';
+import Order from './components/Order';
 
 class App extends Component {
 
@@ -38,17 +39,89 @@ class App extends Component {
           "price": "12.95"
         }
       ],
-      order: []
+      orders: {
+        "id": "1",
+        "customer-id": "1",
+        "items": [
+        ],
+      "total": ""
+      }
     }
   }
 
-  handelProductSelect (product) {
-    this.setState(prevState => {
-      return {
-        order: prevState.selectedProducts.concat(product)
-      }
-    });
+  handelProductSelection (product) {
+    if (this.isThisProductAlreadyIncludedInTheItemArray(product)){
+      this.ChangeQuantityOfItem(product)
+    } else {
+        this.AddNewProductToTheOrder(product)
+    }
+    this.updateTotal()
   }
+
+  updateTotal() {
+
+    let newTotal = this.state.orders
+    let count = 0
+    for (let i = 0; i < newTotal.items.length; i ++){
+      count = (parseFloat(newTotal.items[i].total, 10) + count)
+    }
+    newTotal.total = count.toFixed(2).toString()
+    this.setState({orders: newTotal})
+  }
+
+
+  isThisProductAlreadyIncludedInTheItemArray(product) {
+    for (let i = 0; i < this.state.orders.items.length; i ++) {
+      if(product.id === this.state.orders.items[i].id){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  ChangeQuantityOfItem(product){
+    let newOrders = this.state.orders
+    for(let i = 0; i < newOrders.items.length; i++) {
+      if(product.id === newOrders.items[i].id) {
+      newOrders.items[i].quantity = (parseFloat(newOrders.items[i].quantity, 10) + 1).toString()
+      newOrders.items[i].total = ((parseFloat(newOrders.items[i].total, 10) + parseFloat(product.price, 10)).toFixed(2)).toString();
+      }
+    }
+    this.setState({orders: newOrders})
+    }
+
+    AddNewProductToTheOrder(product) {
+      let newOrders =  this.state.orders
+      newOrders.items = this.state.orders.items.concat(this.formatProductForOrder(product))
+      this.setState({orders: newOrders})
+    }
+
+    formatProductForOrder(product) {
+      let newOrderItem = Object.assign({}, product);
+      newOrderItem["quantity"] = "1"
+      newOrderItem["unit-price"] = product.price
+      newOrderItem["total"] = product.price
+      delete newOrderItem.price
+      delete newOrderItem.category
+      return newOrderItem
+    }
+
+    //Code need for the Orders page
+
+    handelOrderItemSubtraction(item) {
+      this.removeItemFromTheArray(item)
+      this.updateTotal()
+    }
+
+    removeItemFromTheArray(item) {
+      let replacementOrder = this.state.orders
+      for(let i = 0; i < this.state.orders.items.length; i++){
+      if(replacementOrder.items[i].id === item.id) {
+        replacementOrder.items.splice(i, 1)
+        this.setState({orders: replacementOrder})
+      }
+      }
+    }
 
   render() {
     return (
@@ -56,8 +129,15 @@ class App extends Component {
       <h1>Products</h1>
       <ProductList
         products={this.state.products}
-        onProductSelect={this.handelProductSelect.bind(this)}
+        onProductSelect={this.handelProductSelection.bind(this)}
       />
+      <div>
+       <h1>Your Order</h1>
+       <Order
+        orders={this.state.orders}
+        onItemSelect={this.handelOrderItemSubtraction.bind(this)}
+       />
+      </div>
       </div>
     );
   }
