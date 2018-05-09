@@ -6,9 +6,9 @@ function Order (props) {
     <div>
       <ul>
       {
-        props.orders.items.map(order => (
-          <li key={order.id} onClick={() => props.onItemSelect(order)}>
-            {order.description} Quanity:{order.quantity} €{order.total}
+        props.orders.items.map(item => (
+          <li key={item.id} onClick={() => props.onItemSelect(item)}>
+            {item.id} {props.findDescription(item.id)} Quanity:{item.quantity} €{item.total}
           </li>
         ))
       }
@@ -19,7 +19,9 @@ function Order (props) {
 }
 
 // Order.propTypes = {
-//   orders: PropTypes.obj.isRequired,
+//   orders: PropTypes.object.isRequired,
+//   onItemSelect: PropTypes.func.isRequired,
+//   findDescription: PropTypes.func.isRequired
 // }
 
 export default Order;

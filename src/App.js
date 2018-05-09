@@ -108,6 +108,17 @@ class App extends Component {
 
     //Code need for the Orders page
 
+    handleFindDescription(orderId) {
+      console.log('hi')
+      let returnValue;
+      for(let i = 0; i < this.state.products.length; i ++){
+        if (this.state.products[i].id === orderId) {
+          returnValue = this.state.products[i].description
+        }
+      }
+      return returnValue;
+    }
+
     handelOrderItemSubtraction(item) {
       this.removeItemFromTheArray(item)
       this.updateTotal()
@@ -135,6 +146,7 @@ class App extends Component {
        <h1>Your Order</h1>
        <Order
         orders={this.state.orders}
+        findDescription={this.handleFindDescription.bind(this)}
         onItemSelect={this.handelOrderItemSubtraction.bind(this)}
        />
       </div>
