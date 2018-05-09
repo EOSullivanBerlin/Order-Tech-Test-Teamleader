@@ -24,9 +24,24 @@ I was asked to complete this React tech test as part of the recruitment process 
 	I want to receive a conformation of success or failure.
 
 ## Setup and tests
-
+Install dependancies
 npm install
 
+Local Server
 npm start
 
+Run the test suit
 npm tests
+
+## Comments
+
+### API
+Twice in the orginal instruction it was mentioned that I should ensure that the application should easily plug in the real api. 
+
+Firstly with regard to the customer data and product list. 
+I think that making some network requests for the initial data both products and customer data during the life cycle method componentDidMount. I have ensured that the data structure is maintained in my dummy data.
+
+Secondly for sending a http request to a server to confirm an order. 
+In this case I assume that a sucessful http request would result in a conformation and failed http request would result in a failure. 
+
+Hopefully, I have understood the instructions correctly.
