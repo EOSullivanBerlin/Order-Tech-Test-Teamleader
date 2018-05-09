@@ -38,7 +38,6 @@ it('should render a list of products as an unordered list', () => {
   expect(wrapper.find('li').length).toEqual(mockProducts.length);
 });
 
-
 it('should display the product description in each <li> element', () => {
   const firstElement = wrapper.find('li').first();
   expect(firstElement.contains(mockProducts[0].description)).toEqual(true);

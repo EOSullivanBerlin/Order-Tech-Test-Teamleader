@@ -14,6 +14,7 @@ function Order (props) {
       }
       </ul>
         <h1>Total: €{props.orders.total}</h1>
+        <button onClick={() => props.onPlaceOrder()}>Place Order</button>
     </div>
   )
 }

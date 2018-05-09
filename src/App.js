@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ProductList from './components/ProductList';
 import Order from './components/Order';
+import axios from 'axios';
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
+      orderSucessful: false,
       products: [
        {
           "id": "A101",
@@ -59,7 +60,6 @@ class App extends Component {
   }
 
   updateTotal() {
-
     let newTotal = this.state.orders
     let count = 0
     for (let i = 0; i < newTotal.items.length; i ++){
@@ -106,7 +106,6 @@ class App extends Component {
       return newOrderItem
     }
 
-    //Code need for the Orders page
 
     handleFindDescription(orderId) {
       console.log('hi')
@@ -134,6 +133,21 @@ class App extends Component {
       }
     }
 
+    handelOnPlaceOrder() {
+      axios.post('https://httpbin.org/post',
+    {
+      orders: this.state.orders
+    })
+      .then(response => {if(response.status === 200){
+                console.log(response)
+                console.log("order sucessful")
+            } else {
+              console.log(response)
+              console.log("order failed")
+            }
+          });
+    }
+
   render() {
     return (
       <div>
@@ -148,6 +162,7 @@ class App extends Component {
         orders={this.state.orders}
         findDescription={this.handleFindDescription.bind(this)}
         onItemSelect={this.handelOrderItemSubtraction.bind(this)}
+        onPlaceOrder={this.handelOnPlaceOrder.bind(this)}
        />
       </div>
       </div>
