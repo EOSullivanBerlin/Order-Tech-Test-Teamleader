@@ -16,9 +16,9 @@ class App extends Component {
 
   handelProductSelection (product) {
     if (UpdateOrderFn.isThisProductAlreadyIncludedInTheItemArray(product, this.state.orders)){
-        this.setState({orders: UpdateOrderFn.ChangeQuantityOfItem(product, this.state.orders)})
+        this.setState({orders: UpdateOrderFn.changeQuantityAndTotalOfItem(product, this.state.orders)})
     } else {
-        this.setState({orders: UpdateOrderFn.AddNewProductToTheOrder(product, this.state.orders)})
+        this.setState({orders: UpdateOrderFn.addNewProductToTheOrder(product, this.state.orders)})
     }
     this.setState({orders: UpdateOrderFn.updateTotal(this.state.orders)})
   }

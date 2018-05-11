@@ -18,18 +18,26 @@ let UpdateOrderFn = {
     return false;
   },
 
-  ChangeQuantityOfItem(product, orders){
+  changeQuantityAndTotalOfItem(product, orders){
     let newOrders = orders
     for(let i = 0; i < newOrders.items.length; i++) {
       if(product.id === newOrders.items[i].id) {
-      newOrders.items[i].quantity = (parseFloat(newOrders.items[i].quantity, 10) + 1).toString()
-      newOrders.items[i].total = ((parseFloat(newOrders.items[i].total, 10) + parseFloat(product.price, 10)).toFixed(2)).toString();
+      this.quantityUpdate(newOrders, i)
+      this.totalUpdate(newOrders, product, i)
       }
     }
     return newOrders
   },
 
-  AddNewProductToTheOrder(product, orders) {
+  quantityUpdate(orders, index) {
+    orders.items[index].quantity = (parseFloat(orders.items[index].quantity, 10) + 1).toString()
+  },
+
+  totalUpdate(orders, product, index) {
+    orders.items[index].total = ((parseFloat(orders.items[index].total, 10) + parseFloat(product.price, 10)).toFixed(2)).toString();
+  },
+
+  addNewProductToTheOrder(product, orders) {
     let newOrders =  orders
     newOrders.items = orders.items.concat(this.formatProductForOrder(product))
     return newOrders
