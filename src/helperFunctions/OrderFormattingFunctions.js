@@ -50,6 +50,7 @@ let UpdateOrderFn = {
     newOrderItem["total"] = product.price
     delete newOrderItem.price
     delete newOrderItem.category
+    delete newOrderItem.description
     return newOrderItem
   },
 
