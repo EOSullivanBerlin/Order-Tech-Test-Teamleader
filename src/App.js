@@ -10,47 +10,43 @@ class App extends Component {
     super(props);
     this.state = {
       products: Data.productsList,
-      orders: Data.orders
-    }
+      orders: Data.orders,
+    };
   }
 
   handelProductSelection (product) {
-    if (UpdateOrderFn.isThisProductAlreadyIncludedInTheItemArray(product, this.state.orders)){
-        this.setState({orders: UpdateOrderFn.changeQuantityAndTotalOfItem(product, this.state.orders)})
+    if (UpdateOrderFn.isThisProductAlreadyIncludedInTheItemArray(product, this.state.orders)) {
+      this.setState({ orders: UpdateOrderFn.changeQuantityAndTotalOfItem(product, this.state.orders) });
     } else {
-        this.setState({orders: UpdateOrderFn.addNewProductToTheOrder(product, this.state.orders)})
+      this.setState({ orders: UpdateOrderFn.addNewProductToTheOrder(product, this.state.orders) });
     }
-    this.setState({orders: UpdateOrderFn.updateTotal(this.state.orders)})
+    this.setState({ orders: UpdateOrderFn.updateTotal(this.state.orders) });
   }
 
   handleFindDescription(orderId) {
-      let description;
-      for(let i = 0; i < this.state.products.length; i ++){
-        if (this.state.products[i].id === orderId) {
-          description = this.state.products[i].description
-        }
+    let description;
+    for (let i = 0; i < this.state.products.length; i++) {
+      if (this.state.products[i].id === orderId) {
+        description = this.state.products[i].description;
       }
-      return description;
+    }
+    return description;
   }
 
-    handelItemSubtraction(item) {
-      this.setState({orders: UpdateOrderFn.removeItemFromTheArray(item, this.state.orders)})
-      this.setState({orders: UpdateOrderFn.updateTotal(this.state.orders)})
-    }
+  handelItemSubtraction(item) {
+    this.setState({ orders: UpdateOrderFn.removeItemFromTheArray(item, this.state.orders) });
+    this.setState({ orders: UpdateOrderFn.updateTotal(this.state.orders) });
+  }
 
-    handelOnPlaceOrder() {
-      axios.post('https://httpbin.org/post',
-    {
-      orders: this.state.orders
-    })
-      .then(response => { if(response.status === 200){
-                console.log("Order sucessful. Your items will be dispached in three days.")
+  handelOnPlaceOrder() {
+    axios.post('https://httpbin.org/post',
+    { orders: this.state.orders }).then(response => { if (response.status === 200) {
+              console.log('Order sucessful. Your items will be dispached in three days.');
             }
           }).catch(error => {
-            console.log("Order could not be placed at this time, try again later.")
-          })
-    };
-
+            console.log('Order could not be placed at this time, try again later.');
+          });
+  };
 
   render() {
     return (

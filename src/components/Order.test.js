@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 import Order from './Order';
 
 let mockOrders, mockProducts, wrapper, findDescriptionFn, onItemSelectFn;
@@ -7,41 +7,41 @@ let mockOrders, mockProducts, wrapper, findDescriptionFn, onItemSelectFn;
 beforeEach(() => {
   mockProducts = [
     {
-       "id": "A101",
-      "description": "Screwdriver",
-      "category": "1",
-      "price": "9.75"
+       'id': 'A101',
+      'description': 'Screwdriver',
+      'category': '1',
+      'price': '9.75',
     },
     {
-       "id": "A102",
-       "description": "Electric screwdriver",
-       "category": "1",
-       "price": "49.50"
-     }
+       'id': 'A102',
+       'description': 'Electric screwdriver',
+       'category': '1',
+       'price': '49.50',
+    },
   ];
 
   mockOrders = {
-      "id": "1",
-      "customer-id": "1",
-      "items": [
+      'id': '1',
+      'customer-id': '1',
+      'items': [
       {
-         "id": "A101",
-        "quantity": "1",
-        "unit-price": "9.75",
-        "total": "9.75"
+         'id': 'A101',
+        'quantity': '1',
+        'unit-price': '9.75',
+        'total': '9.75',
       },
       {
-         "id": "A102",
-         "quantity": "2",
-         "unit-price": "49.50",
-         "total": "99"
-       }
+         'id': 'A102',
+         'quantity': '2',
+         'unit-price': '49.50',
+         'total': '99',
+       },
     ],
     "total": "108.75"
     };
 
   findDescriptionFn = jest.fn();
-  findDescriptionFn.mockReturnValueOnce('Screwdriver')
+  findDescriptionFn.mockReturnValueOnce('Screwdriver');
 
   onItemSelectFn = jest.fn();
 

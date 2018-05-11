@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 import ProductList from './ProductList';
 
 let mockProducts, wrapper, productSelectFn;
@@ -7,23 +7,23 @@ let mockProducts, wrapper, productSelectFn;
 beforeEach(() => {
   mockProducts = [
     {
-       "id": "A101",
-      "description": "Mock Screwdriver",
-      "category": "1",
-      "price": "9.75"
+      'id': 'A101',
+      'description': 'Mock Screwdriver',
+      'category': '1',
+      'price': '9.75',
     },
-    {
-       "id": "A102",
-       "description": "Mock Electric screwdriver",
-       "category": "1",
-       "price": "49.50"
-     }
+      {
+        'id': 'A102',
+        'description': 'Mock Electric screwdriver',
+        'category': '1',
+        'price': '49.50',
+      },
   ];
   productSelectFn = jest.fn();
-    wrapper = shallow(<ProductList
+  wrapper = shallow(<ProductList
        products={mockProducts}
        onProductSelect={productSelectFn}
-       />);
+  />);
 });
 
 it('should call props.onProductselect when an <li> is clicked', () => {

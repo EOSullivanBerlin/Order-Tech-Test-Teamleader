@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ProductList (props) {
+function ProductList(props) {
   return (
     <ul>
     {
@@ -12,12 +12,12 @@ function ProductList (props) {
       ))
     }
     </ul>
-  )
+  );
 }
 
 ProductList.propTypes = {
   products: PropTypes.array.isRequired,
-  onProductSelect: PropTypes.func.isRequired
+  onProductSelect: PropTypes.func.isRequired,
 };
 
 export default ProductList;

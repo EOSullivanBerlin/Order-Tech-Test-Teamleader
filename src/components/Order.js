@@ -1,7 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-function Order (props) {
+function Order(props) {
   return (
     <div>
       <ul>
@@ -16,13 +16,13 @@ function Order (props) {
         <h1>Total: €{props.orders.total}</h1>
         <button onClick={() => props.onPlaceOrder()}>Place Order</button>
     </div>
-  )
+  );
 }
 
-// Order.propTypes = {
-//   orders: PropTypes.object.isRequired,
-//   onItemSelect: PropTypes.func.isRequired,
-//   findDescription: PropTypes.func.isRequired
-// }
+Order.propTypes = {
+  orders: PropTypes.object.isRequired,
+  onItemSelect: PropTypes.func.isRequired,
+  findDescription: PropTypes.func.isRequired,
+};
 
 export default Order;
