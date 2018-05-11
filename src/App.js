@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import ProductList from './components/ProductList';
 import Order from './components/Order';
 import axios from 'axios';
+//import updateTotal from './helperFunctions/OrderFormattingFunctions';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      orderSucessful: false,
       products: [
        {
           "id": "A101",
@@ -51,49 +51,53 @@ class App extends Component {
   }
 
   handelProductSelection (product) {
-    if (this.isThisProductAlreadyIncludedInTheItemArray(product)){
-      this.ChangeQuantityOfItem(product)
+    if (this.isThisProductAlreadyIncludedInTheItemArray(product, this.state.orders)){
+        this.setState({
+          orders: this.ChangeQuantityOfItem(product, this.state.orders)
+        })
     } else {
-        this.AddNewProductToTheOrder(product)
+        this.setState({
+          orders: this.AddNewProductToTheOrder(product, this.state.orders)
+        })
     }
-    this.updateTotal()
+    this.setState({orders: this.updateTotal(this.state.orders)})
   }
 
-  updateTotal() {
-    let newTotal = this.state.orders
+  updateTotal(orders) {
+    let newTotal = orders
     let count = 0
     for (let i = 0; i < newTotal.items.length; i ++){
       count = (parseFloat(newTotal.items[i].total, 10) + count)
     }
     newTotal.total = count.toFixed(2).toString()
-    this.setState({orders: newTotal})
+    return newTotal
   }
 
 
-  isThisProductAlreadyIncludedInTheItemArray(product) {
-    for (let i = 0; i < this.state.orders.items.length; i ++) {
-      if(product.id === this.state.orders.items[i].id){
+  isThisProductAlreadyIncludedInTheItemArray(product, orders) {
+    for (let i = 0; i < orders.items.length; i ++) {
+      if(product.id === orders.items[i].id){
         return true;
       }
     }
     return false;
   }
 
-  ChangeQuantityOfItem(product){
-    let newOrders = this.state.orders
+  ChangeQuantityOfItem(product, orders){
+    let newOrders = orders
     for(let i = 0; i < newOrders.items.length; i++) {
       if(product.id === newOrders.items[i].id) {
       newOrders.items[i].quantity = (parseFloat(newOrders.items[i].quantity, 10) + 1).toString()
       newOrders.items[i].total = ((parseFloat(newOrders.items[i].total, 10) + parseFloat(product.price, 10)).toFixed(2)).toString();
       }
     }
-    this.setState({orders: newOrders})
+    return newOrders
     }
 
-    AddNewProductToTheOrder(product) {
-      let newOrders =  this.state.orders
-      newOrders.items = this.state.orders.items.concat(this.formatProductForOrder(product))
-      this.setState({orders: newOrders})
+    AddNewProductToTheOrder(product, orders) {
+      let newOrders =  orders
+      newOrders.items = orders.items.concat(this.formatProductForOrder(product))
+      return newOrders
     }
 
     formatProductForOrder(product) {
@@ -139,14 +143,13 @@ class App extends Component {
       orders: this.state.orders
     })
       .then(response => {if(response.status === 200){
-                console.log(response)
-                console.log("order sucessful")
-            } else {
-              console.log(response)
-              console.log("order failed")
+                console.log("Order sucessful. Your items will be dispached in three days.")
             }
-          });
-    }
+          }).catch(error => {
+            console.log("Order could not be placed at this time, try again later.")
+          })
+          };
+
 
   render() {
     return (
