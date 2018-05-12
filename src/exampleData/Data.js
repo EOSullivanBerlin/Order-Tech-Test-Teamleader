@@ -36,8 +36,8 @@ let Data = {
     'id': '1',
     'customer-id': '1',
     'items': [],
-    'total': ''
-  }
-}
+    'total': '',
+  },
+};
 
 export default Data;

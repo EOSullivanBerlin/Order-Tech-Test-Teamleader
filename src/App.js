@@ -4,11 +4,13 @@ import Order from './components/Order';
 import axios from 'axios';
 import UpdateOrderFn  from './helperFunctions/OrderFormattingFunctions';
 import Data from './exampleData/Data';
+import FailedOrder from './components/FailedOrder';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      orderingFailed: false,
       products: Data.productsList,
       orders: Data.orders,
     };
@@ -43,8 +45,10 @@ class App extends Component {
     { orders: this.state.orders }).then(response => { if (response.status === 200) {
               console.log('Order sucessful. Your items will be dispached in three days.');
             }
-          }).catch(error => {
-            console.log('Order could not be placed at this time, try again later.');
+          }).catch(error => { if (error.number === 300) {
+              console.log('Order could not be placed at this time, try again later.');
+              this.setState({ orderingFailed: true });
+            }
           });
   };
 
@@ -58,6 +62,7 @@ class App extends Component {
         />
       <div>
            <h1>Your Order</h1>
+
            <Order
             orders={this.state.orders}
             findDescription={this.handleFindDescription.bind(this)}
@@ -65,6 +70,7 @@ class App extends Component {
             onPlaceOrder={this.handelOnPlaceOrder.bind(this)}
            />
         </div>
+        <FailedOrder orderingFailed={this.state.orderingFailed}/>
       </div>
     );
   }
