@@ -1,12 +1,10 @@
 # Teamleader Ordering Coding-Test
-I was asked to complete this React tech test as part of the recruitment process of teamleader.
+This is a React tech test I completed as part of the recruitment process of teamleader.
 
 Original coding challenge found here.
 https://github.com/teamleadercrm/coding-test/blob/master/2-ordering.md
 
 ## Approach
-My approach to this challenge was:
-
 **Planing**
 Break the problems down into the small chance and write User Stories, identify the structure of the software and diagram.  
 Then I estimated the length of time I would require to complete each of the user stories.
@@ -73,7 +71,7 @@ However, I did resort to spiking for the logic.
 ### API
 The instructions mention that the app should be able to plug in easily to a real API for the completion of an order.
 My present solution assumes that a successful http request would result in a conformation and failed http request would result in a failure.
-I understand that likely a post request would return some data and this returned data is what I could base the order confirmation on.
+I understand that likely a post request would return some data and this returned data is what I could base the order failure message on. I would need more insight into how the API would work. 
 
 ### Application Data
 My application starts with dummy data already saved as state. In a real application I think a network request would be made when liked to a lifecycle event of the application to populate this data.
